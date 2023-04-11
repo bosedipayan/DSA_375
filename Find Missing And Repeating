@@ -1,0 +1,52 @@
+int *findTwoElement(int *arr, int n) {
+        // code here
+        /*int res[2];
+        
+        map<int,int> mp;
+        for(int i=0;i<n;i++)
+        {
+            mp[arr[i]]++;
+        }
+        
+        for(auto it1:mp)
+        {
+            if(it1.second == 2)
+            {
+                res[0]=it1.first;
+                break;
+            }
+        }
+        
+        int c=1;
+        for(int i=0;i<n;i++)
+        {
+            if(c==arr[0])
+            {
+                continue;
+            }
+            else
+            {
+                res[1]=c;
+                break;
+            }
+            c++;
+        }
+        
+        int *ans=res;
+        return ans;*/
+        unordered_map<int,int>map;
+        int ans[2];
+        int sum=0,flag=0;
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            flag+=i+1;
+            map[arr[i]]++;
+        }
+        sum=sum-flag;
+        for(int i=0;i<n;i++){
+            if(map[arr[i]]==2) ans[0]=arr[i];
+        }
+        ans[1]=ans[0]-sum;
+        int *cnt=ans;
+        return cnt;
+    }
