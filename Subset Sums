@@ -1,0 +1,22 @@
+class Solution
+{
+public:
+    void checkSum(int i,int s,vector<int> &arr,int n,vector<int>& ans)
+    {
+        if(i == n)
+        {
+            ans.push_back(s);
+            return;
+        }
+        
+        checkSum(i+1,s+arr[i],arr,n,ans);
+        checkSum(i+1,s,arr,n,ans);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int> ans;
+        checkSum(0,0,arr,N,ans);
+        return ans;
+    }
+};
