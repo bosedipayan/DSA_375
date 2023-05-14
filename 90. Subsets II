@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void checkDupSum(int idx,vector<int> &v,vector<int>& nums,vector<vector<int>> &ans)
+    {
+        ans.push_back(v);
+        for(int i=idx;i<nums.size();i++)
+        {
+            if(i!=idx && nums[i-1]==nums[i]) continue;  // to skip the duplicate subsets
+            v.push_back(nums[i]);
+            checkDupSum(i+1,v,nums,ans);
+            v.pop_back();
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> v;
+        
+        sort(nums.begin(),nums.end());
+        checkDupSum(0,v,nums,ans);
+        return ans;
+    }
+};
