@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int repeatedStringMatch(string a, string b) {
+        unordered_map<char,int> mp;
+        for(auto it:a)
+        {
+            mp[it]++;
+        }
+        
+        for(auto it:b)
+        {
+            if(mp.find(it) == mp.end())
+            {
+                return -1;
+            }
+        }
+        
+        int ans=0;
+        string res="";
+        while(res.size() < b.size())
+        {
+            res+=a;
+            ans++;
+        }
+        
+        if(res.find(b)!=string::npos)
+        {
+            return ans;
+        }
+        
+        res+=a;
+        ans++;
+        
+        if(res.find(b)!=string::npos)
+        {
+            return ans;
+        }
+        
+        return -1;
+    }
+};
