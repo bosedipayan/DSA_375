@@ -1,0 +1,42 @@
+class Solution {    
+    public:
+    void checkQueen(int col,int n,vector<string> &board,vector<int> &left,vector<int> &upleft,vector<int> &downleft,vector<vector<string>> &ans)
+    {
+        if(col==n)
+        {
+            ans.push_back(board);
+            return;
+        }
+        
+        for(int row=0;row<n;row++)
+        {
+            if(left[row]==0 && upleft[n-1 + col-row]==0 && downleft[col+row]==0)
+            {
+                board[row][col]='Q';
+                left[row]=1;
+                upleft[n-1 + col-row]=1;
+                downleft[col+row]=1;
+                checkQueen(col+1,n,board,left,upleft,downleft,ans);
+                board[row][col]='.';
+                left[row]=0;
+                upleft[n-1 + col-row]=0;
+                downleft[col+row]=0;
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        
+        string s(n,'.');
+        for(int i=0;i<n;i++)
+        {
+            board[i]=s;
+        }
+        
+        vector<int> left(n,0),upleft(2*n-1, 0),downleft(2*n-1, 0);
+        
+        checkQueen(0,n,board,left,upleft,downleft,ans);
+        return ans;
+    }
+};
