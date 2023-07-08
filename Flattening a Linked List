@@ -1,0 +1,59 @@
+/* Node structure  used in the program
+
+struct Node{
+	int data;
+	struct Node * next;
+	struct Node * bottom;
+	
+	Node(int x){
+	    data = x;
+	    next = NULL;
+	    bottom = NULL;
+	}
+	
+};
+*/
+
+/*  Function which returns the  root of 
+    the flattened linked list. */
+Node *flatten(Node *root)
+{
+   // Your code here
+   Node* bptr = root;
+   Node* nptr = root;
+   
+   while(nptr)
+   {
+       while(bptr->bottom)
+       {
+           bptr = bptr->bottom;
+       }
+       nptr = nptr->next;
+       
+       bptr->bottom = nptr;
+   }
+   
+   vector<int> v;
+   Node* temp=root;
+   while(temp)
+   {
+       v.push_back(temp->data);
+       temp=temp->bottom;
+   }
+   
+   sort(v.begin(), v.end());
+   
+   
+   Node* ptr=root;
+   
+   int i=0;
+   while(ptr)
+   {
+       
+       ptr->data=v[i];
+       ptr=ptr->bottom;
+       
+       i++;
+   }
+   return root;
+}
