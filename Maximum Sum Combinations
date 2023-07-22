@@ -1,0 +1,28 @@
+vector<int> Solution::solve(vector<int> &A, vector<int> &B, int C) {
+    priority_queue<int> res;
+    
+    queue<int> q;
+    for(auto it:A)
+    {
+        q.push(it);
+    }
+    
+    while(!q.empty())
+    {
+        int fs=q.front();
+        q.pop();
+        
+        for(int i=0;i<B.size();i++)
+        {
+            res.push(fs+B[i]);
+        }
+    }
+    
+    vector<int> ans;
+    while(C--)
+    {
+        ans.push_back(res.top());
+        res.pop();
+    }
+    return ans;
+}
