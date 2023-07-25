@@ -1,0 +1,99 @@
+class MedianFinder {
+public:
+    priority_queue<int> pq;
+    priority_queue<int,vector<int>,greater<int>> pq1;
+    
+    MedianFinder() {
+        
+    }
+    
+    void check()
+    {
+        if(pq.size() > pq1.size() && pq.size()-pq1.size() > 1)
+        {
+            pq1.push(pq.top());
+            pq.pop();
+        }
+        
+        if(pq1.size() > pq.size() && pq1.size()-pq.size() > 1)
+        {
+            pq.push(pq1.top());
+            pq1.pop();
+        }
+    }
+    
+    void addNum(int num) {
+        if(pq.empty() || pq.top() >= num)
+        {
+            pq.push(num);
+        }
+        else
+        {
+            pq1.push(num);
+        }
+        
+        check();
+    }
+    
+    double findMedian() {
+        /*
+        int size=pq.size();
+        if(size % 2 != 0)
+        {
+            vector<int> v;
+            int rsz=size/2;
+            while(rsz--)
+            {
+                v.push_back(pq.top());
+                pq.pop();
+            }
+            
+            double c=pq.top();
+            for(int i=0;i<v.size();i++)
+            {
+                pq.push(v[i]);
+            }
+            return c;
+        }
+        else
+        {
+            vector<int> v;
+            int rsz=size/2;
+            while(--rsz)
+            {
+                v.push_back(pq.top());
+                pq.pop();
+            }
+            
+            double c1=pq.top();
+            v.push_back(pq.top());
+            pq.pop();
+            double c2=pq.top();
+            for(int i=0;i<v.size();i++)
+            {
+                pq.push(v[i]);
+            }
+            return (c1+c2)/2;
+        }
+        */
+        if(pq.size() == pq1.size())
+        {
+            return (pq.top() + pq1.top())/2.0;
+        }
+        else if(pq.size() > pq1.size())
+        {
+            return pq.top();
+        }
+        else
+        {
+            return pq1.top();
+        }
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
