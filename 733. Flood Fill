@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void getFill(int row,int col,int initColor,int newColor,vector<vector<int>>& image,vector<vector<int>> &ans)
+    {
+        ans[row][col]=newColor;
+        
+        int n=image.size(),m=image[0].size();
+        
+        int dr[]={-1,0,+1,0};
+        int dc[]={0,+1,0,-1};
+        for(int i=0;i<4;i++)
+        {
+            int nr=row+dr[i];
+            int nc=col+dc[i];
+            
+            if(nr>=0 && nr<n && nc>=0 && nc<m && ans[nr][nc]==initColor && ans[nr][nc]!=newColor)
+            {
+                getFill(nr,nc,initColor,newColor,image,ans);
+            }
+        }
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) 
+    {
+        vector<vector<int>> ans=image;
+        
+        int initColor=image[sr][sc];
+        getFill(sr,sc,initColor,newColor,image,ans);
+        return ans;
+    }
+};
