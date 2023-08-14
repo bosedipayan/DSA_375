@@ -1,0 +1,73 @@
+/* BST Node
+struct Node
+{
+	int key;
+	struct Node *left;
+	struct Node *right;
+	
+	Node(int x){
+	    key = x;
+	    left = NULL;
+	    right = NULL;
+	}
+};
+*/
+
+// This function finds predecessor and successor of key in BST.
+// It sets pre and suc as predecessor and successor respectively
+class Solution
+{
+    public:
+    /*void getPreSuc(Node* root, deque<Node*> &q)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        
+        getPreSuc(root->left, q);
+        q.push_back(root);
+        getPreSuc(root->right, q);
+    }*/
+    void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+    {
+        // Your code goes here
+        
+        if(root == NULL) return;
+        
+        findPreSuc(root->left, pre, suc, key);
+        if(root->key < key) pre=root;
+        if(root->key > key && !suc) suc=root;
+        findPreSuc(root->right, pre, suc, key);
+        /*deque<Node*> q;
+        getPreSuc(root, q);
+        
+        if(q.front()->key > key)
+        {
+            pre=NULL;
+            suc=q.front();
+        }
+        else if(q.back()->key < key)
+        {
+            pre=q.back();
+            suc=NULL;
+        }
+        else
+        {
+            Node* res1=q.front();
+            q.pop_front();
+            while(!q.empty())
+            {
+                Node* res2=q.front();
+                q.pop_front();
+                
+                if(res1->key >= key && res2->key <= key)
+                {
+                    pre=res1;
+                    suc=res2;
+                }
+                res1=res2;
+            }
+        }*/
+    }
+};
