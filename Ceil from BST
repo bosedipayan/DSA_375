@@ -1,0 +1,57 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    class BinaryTreeNode {
+    public:
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+        
+        BinaryTreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if (left) {
+              delete left;
+            }
+            if (right) {
+              delete right;
+            }
+        }
+    };
+
+************************************************************/
+void getNodes(BinaryTreeNode<int> *node, vector<int> &v)
+{
+    if(node == NULL)
+    {
+        return;
+    }
+
+    v.push_back(node->data);
+
+    getNodes(node->left, v);
+    getNodes(node->right, v);
+}
+int findCeil(BinaryTreeNode<int> *node, int x){
+    // Write your code here.
+    vector<int> v;
+    getNodes(node, v); 
+
+    sort(v.begin(),v.end());
+    int ans=-1;
+    for(int i=0;i<v.size();i++)
+    {
+        if(v[i] >= x)
+        {
+            ans=v[i];
+            break;
+        }
+    }
+    return ceil(ans);
+}
