@@ -1,0 +1,47 @@
+lass Solution
+{
+	public:
+	//Function to return list containing vertices in Topological order. 
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    vector<int> vis(V, 0);
+	    
+	    for(int i=0;i<V;i++)
+	    {
+	        for(auto it:adj[i])
+	        {
+	            vis[it]++;
+	        }
+	    }
+	    
+	    queue<int> q;
+	    for(int i=0;i<V;i++)
+	    {
+	        if(!vis[i])
+	        {
+	            q.push(i);
+	        }
+	    }
+	    
+	    vector<int> ans;
+	    while(!q.empty())
+	    {
+	        int ele=q.front();
+	        q.pop();
+	        
+	        ans.push_back(ele);
+	        
+	        for(auto it:adj[ele])
+	        {
+	            vis[it]--;
+	            
+	            if(vis[it] == 0)
+	            {
+	                q.push(it);
+	            }
+	        }
+	    }
+	    return ans;
+	}
+};
