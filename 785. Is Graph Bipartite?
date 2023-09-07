@@ -1,0 +1,67 @@
+class Solution {
+public:
+    bool checkDFS(int node,vector<int> &vis,vector<vector<int>>& graph,int color)
+    {
+        vis[node]=color;
+        
+        for(auto it:graph[node])
+        {
+            if(vis[it] == -1)
+            {
+                if(!checkDFS(it,vis,graph,!color)) return false;
+            }
+            else if(vis[it] == vis[node])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    bool isBipartite(vector<vector<int>>& graph) {
+        int n=graph.size();
+        
+        vector<int> vis(n, -1);
+        
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i] == -1)
+            {
+                if(!checkDFS(i,vis,graph,1))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+        
+        /*vector<int> vis(n, 0);
+        
+        queue<int> q;
+        for(int i=0;i<n;i++)
+        {
+            if(vis[i]) continue;
+            q.push(i);
+            vis[i]=1;
+            
+            while(!q.empty())
+            {
+                int res=q.front();
+                q.pop();
+                
+                for(auto it:graph[res])
+                {
+                    if(!vis[it])
+                    {
+                        q.push(it);
+                        vis[it] = -vis[res];
+                    }
+                    else if(vis[it] == vis[res])
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;*/
+    }
+};
